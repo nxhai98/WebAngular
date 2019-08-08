@@ -1,0 +1,63 @@
+<mat-dialog-content>
+    <h2>News Detail</h2>
+    <form [formGroup]="detailForm">
+        <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">Title:</label>
+            <div class="col-sm-10">
+                <textarea formControlName="title" class="form-control" id="title" rows="2" [ngClass]="{'is-invalid': submitted && f.title.errors, 'is-valid': submitted && !f.title.errors}"></textarea>
+                <div class="valid-feedback">
+                    Look good!
+                </div>
+                <div class="invalid-feedback">
+                    Title is required!!
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="author" class="col-sm-2 col-form-label">Author:</label>
+            <div class="col-sm-4">
+                <input formControlName="author" type="text" id="author" class="form-control">
+            </div>
+            <label for="catalog" class="col-sm-1 col-form-label">Catalog:</label>
+            <div class="col-sm-5">
+                <select name="catalog" id="catalog" class="form-control" [ngClass]="{'is-invalid': submitted && f.catalogId.errors, 'is-valid': submitted && !f.catalogId.errors}">
+                    <option *ngFor="let catalog of catalogList" [value]="catalog.id">{{catalog.name}}</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <label for="create-at" class="col-sm-2 col-form-label">Create at:</label>
+            <div class="col-sm-4">
+                <input type="text" id="create-at" class=" form-control" [value]="data.createAt" disabled>
+            </div>
+            <label for="last-update" class="col-sm-2 col-form-label">Last update:</label>
+            <div class="col-sm-4">
+                <input type="text" id="last-update" class=" form-control" [value]="data.updateAt" disabled>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="description" class="col-sm-2">Description:</label>
+            <div class="col-sm-10">
+                <textarea formControlName="description" id="description" class="form-control"></textarea>
+                <div class="valid-feedback">
+                    Look good!
+                </div>
+                <div class="invalid-feedback">
+                    Description is required!!
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="content" class="col-sm-2 col-form-label">Content:</label>
+            <div class="col-sm-10">
+                <textarea formControlName="content" id="content" class="form-control"></textarea>
+            </div>
+        </div>
+
+    </form>
+</mat-dialog-content>
+<div class="float-lg-right">
+    <button class="btn btn-secondary" (click)="close()">Back</button>
+    <button class="btn btn-primary" (click)="onSubmit()">Update</button>
+</div>

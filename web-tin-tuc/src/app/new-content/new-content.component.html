@@ -1,0 +1,71 @@
+<div class="col-sm-10 mx-auto" style="margin-top: 150px;">
+    <div class="card">
+        <img [src]="imgUrl + news.id" class="card-img-top">
+        <div class="card-body">
+            <h2 class="card-title">{{news.title}}</h2>
+            <p class="card-text">{{news.description}}</p>
+            <h6 class="card-subtitle mt-2 text-muted">{{news.createAt|date:'medium'}}</h6>
+            <p class="card-text">{{news.content}}</p>
+            <div>
+                <!-- comment -->
+            </div>
+        </div>
+    </div>
+
+    <div class="row bootstrap snippets mx-auto">
+        <div class="col-md-8 col-md-offset-2 col-sm-12 mx-auto">
+            <div class="comment-wrapper">
+                <div class="panel panel-info">
+                    <br><br>
+                    <div class="panel-heading">
+                        <h3>Comments:</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div id="comment-area">
+                            <textarea class="form-control" placeholder="write a comment..." [(ngModel)]="commentContent" rows="3"></textarea>
+                            <br>
+                            <button type="button" class="btn btn-info btn-lg float-right" (click)="postComment()">Post</button>
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr>
+                        <ul class="media-list">
+                            <li class="media" *ngFor="let node of commentTree">
+                                <a href="#" class="pull-left">
+                                    <img src="https://bootdey.com/img/Content/user_2.jpg" alt="" class="img-circle">
+                                </a>
+                                <div class="media-body">
+                                    <strong class="text-success">@ {{node.node.userName}}</strong><br>
+                                    <span class="text-muted pull-right">
+                                        <small class="text-muted">{{node.node.createAt|date:'medium'}}</small>
+                                    </span>
+                                    <p>
+                                        {{node.node.content}}
+                                    </p>
+                                    <div class="media" *ngFor="let child of node.child">
+                                        <a href="#" class="pull-left">
+                                            <img src="https://bootdey.com/img/Content/user_2.jpg" alt="" class="img-circle">
+                                        </a>
+                                        <div class="media-body">
+                                            <strong class="text-success">@{{child.userName}}</strong><br>
+                                            <span class="text-muted pull-right">
+                                                <small class="text-muted">{{child.createAt|date:'medium'}}</small>
+                                            </span>
+                                            <p>
+                                                {{child.content}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <app-rep-comment (onSubmit)="onReset()" [newsId]="news.id" [parentId]="node.node.id"></app-rep-comment>
+                                    </div>
+                                </div>
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+<section class="container" style="margin-top: 70px;">
+    <section class="row" style="width: 100%; padding-top: 100px">
+        <section class="col-12">
+            <div id="list-paging">
+                <div class="container" *ngFor="let news of listNews">
+                    <div class="card flex-row flex-wrap">
+                        <div class="row no-gutters">
+                            <div class="col-auto">
+                                <img style="top: auto; bottom: auto; margin: 12px" [src]="imgUrl + news.id" width=180px height=auto>
+                            </div>
+                            <div class="col">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="cursor: pointer"><a [routerLink]="['/news/',news.id,'content']" routerLinkActive="router-link-active">{{news.title}}</a></h5>
+                                    <p class="card-text">{{news.description}}</p>
+                                    <h6 class="card-subtitle mt-2 text-muted">{{news.createAt|date:'medium'}}</h6>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <nav aria-label="Page navigation example" style="margin-top: 30px;">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" [ngClass]="{'disabled': currentPage <= 1}">
+                            <a class="page-link" tabindex="-1" aria-disabled="true" (click)="loadPage(currentPage - 1)">Previous</a>
+                        </li>
+                        <li class="page-item" *ngFor="let page of pageDisplay" [ngClass]="{'disabled': currentPage == page}">
+                            <a class="page-link" tabindex="0" (click)="loadPage(page)">{{page}}</a>
+                        </li>
+                        <li class="page-item" [ngClass]="{'disabled': currentPage >= pageCount}">
+                            <a class=" page-link" tabindex="1" (click)="loadPage(currentPage + 1)">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </section>
+    </section>
+</section>

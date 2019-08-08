@@ -1,0 +1,58 @@
+<mat-dialog-content>
+    <form [formGroup]="addForm">
+        <div class="form-group row">
+            <label for="title" class="col-sm-2">Title:</label>
+            <div class="col-sm-10">
+                <input formControlName="title" type="text" name="title" class="form-control" [ngClass]="{'is-invalid': f.title.errors && submitted, 'is-valid': !f.title.errors && submitted}">
+                <div class="invalid-feedback">
+                    Title required!
+                </div>
+                <div class="valid-feedback">
+                    Look good!
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="description" class="col-sm-2">Description:</label>
+            <div class="col-sm-10">
+                <input formControlName="description" type="text" name="description" class="form-control" [ngClass]="{'is-invalid': f.description.errors && submitted, 'is-valid': !f.description.errors && submitted}">
+                <div class="invalid-feedback">
+                    Description required!
+                </div>
+                <div class="valid-feedback">
+                    Look good!
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="catalog" class="col-sm-2">Catalog:</label>
+            <div class="col-sm-10">
+                <select formControlName="catalogId" name="catalog" class="form-control" [ngClass]="{'is-invalid': f.catalogId.errors && submitted, 'is-valid': !f.catalogId.errors && submitted}">
+                    <option *ngFor="let catalog of listCatalog" [value]="catalog.id">{{catalog.name}}</option>
+                </select>
+                <div class="invalid-feedback">
+                    Catalog required!
+                </div>
+                <div class="valid-feedback">
+                    Look Good!
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="content" class="col-sm-2">Content:</label>
+            <div class="col-sm-10">
+                <textarea formControlName="content" name="content" rows="3" class="form-control" [ngClass]="{'is-invalid': f.content.errors && submitted, 'is-valid': !f.content.errors && submitted}"></textarea>
+                <div class="invalid-feedback">
+                    Content required!
+                </div>
+                <div class="valid-feedback">
+                    Look Good!
+                </div>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<div class="float-right btn-group">
+    <button class="btn btn-secondary" (click)="close()">Close</button>
+    <button class="btn btn-primary" (click)="add(addForm.value)">Add</button>
+</div>

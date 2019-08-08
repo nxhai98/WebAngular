@@ -1,0 +1,18 @@
+.navside-sticky {
+    position: sticky;
+    top: 56px;
+    margin-top: 56px;
+    height: calc(100vh - 56px);
+    padding-top: .5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+li {
+    cursor: pointer;
+}
+
+.on-active {
+    color: white;
+    background-color: gray;
+}

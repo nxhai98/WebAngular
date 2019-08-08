@@ -1,0 +1,67 @@
+<h2 mat-dialog-title>Edit User</h2>
+<mat-dialog-content>
+    <form [formGroup]="editForm">
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label" for="UserName">UserName:</label>
+            <div class="col-sm-8">
+                <input formControlName="userName" id="UserName" type="text" class="form-control" [ngClass]="{'is-invalid': isSubmit && f.userName.errors, 'is-valid': isSubmit && !f.userName.errors}">
+                <div class="valid-feedback">
+                    Look good!
+                </div>
+                <div class="invalid-feedback">
+                    Username is required!!
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label" for="Full Name">Full Name:</label>
+            <div class="col-sm-8">
+                <input formControlName="fullName" id="Full Name" type="text" class="form-control" [ngClass]="{'is-invalid': isSubmit && f.fullName.errors, 'is-valid': isSubmit && !f.fullName.errors}">
+                <div class="valid-feedback">
+                    Look good!
+                </div>
+                <div class="invalid-feedback">
+                    Name is required!!
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label" for="Email">Email:</label>
+            <div class="col-sm-8">
+                <input formControlName="email" id="Email" type="text" class="form-control" [ngClass]="{'is-invalid': isSubmit && f.email.errors, 'is-valid': isSubmit && !f.email.errors}">
+                <div class="valid-feedback">
+                    Look good!
+                </div>
+                <div class="invalid-feedback" *ngIf="!!f.email.errors">
+                    <div *ngIf="!!f.email.errors.required">
+                        Email is required!!
+                    </div>
+                    <div *ngIf="!!f.email.errors.email">
+                        Email isn't true value!!
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label" for="gender">gender:</label>
+            <div class="col-sm-8">
+                <select formControlName="gender" class="form-control" [ngClass]="{'is-invalid': isSubmit && f.gender.errors, 'is-valid': isSubmit && !f.gender.errors}">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                <div class="valid-feedback">
+                    Look good!
+                </div>
+                <div class="invalid-feedback">
+                    Gender is required!!
+                </div>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions class="float-right">
+    <button class="btn btn-secondary" (click)="close()" style="margin-right: 12px;">Close</button>
+    <button class="btn btn-primary" (click)="save()">Save</button>
+</mat-dialog-actions>

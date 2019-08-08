@@ -1,0 +1,54 @@
+<div>
+    <button class="btn btn-primary" (click)="openAddDialog()">Add new User</button>
+    <br><br>
+    <h2>List User:</h2>
+    <form class="form-inline my-2">
+        <input class="form-control mr-sm-2 " type="search" placeholder="Search" [(ngModel)]="searchChar" (keyup)="search()" [ngModelOptions]="{standalone: true}">
+        <button class=" btn btn-outline-success my-2 mr-sm-2" type="submit " (click)="search() ">Search</button>
+        <button class="btn btn-secondary my-2" (click)="cancel()" *ngIf="isSearch">Cancel</button>
+    </form>
+    <table class="table table-striped flex-column mx-auto ">
+        <thead class="thead-dark ">
+            <tr>
+                <th scope="col ">#</th>
+                <th scope="col ">User Name</th>
+                <th scope="col ">Role</th>
+                <th scope="col ">Email</th>
+                <th scope="col ">Full Name</th>
+                <th scope="col ">Gender</th>
+                <th scope="col ">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of listUsers ">
+                <th scope="row ">{{user.id}}</th>
+                <td>{{user.userName}}</td>
+                <td>{{user.role}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.fullName}}</td>
+                <td>{{user.gender}}</td>
+                <td>
+                    <div class="btn-group mx-auto ">
+                        <button class="btn btn-primary btn-sm " (click)="openEditDialog(user) ">Edit</button>
+                        <button class="btn btn-secondary btn-sm " (click)="removeUser(user) ">Remove</button>
+                    </div>
+
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+    <nav aria-label="Page navigation example" style="margin-top: 30px;" *ngIf="!isSearch">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" [ngClass]="{'disabled': currentPage <= 1}">
+                <a class="page-link" tabindex="-1" aria-disabled="true" (click)="loadPage(currentPage - 1)">Previous</a>
+            </li>
+            <li class="page-item" *ngFor="let page of pageDisplay" [ngClass]="{'disabled': currentPage == page}">
+                <a class="page-link" tabindex="0" (click)="loadPage(page)">{{page}}</a>
+            </li>
+            <li class="page-item" [ngClass]="{'disabled': currentPage >= pageCount}">
+                <a class=" page-link " tabindex="+1" (click)="loadPage(currentPage + 1)">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>

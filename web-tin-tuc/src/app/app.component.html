@@ -1,0 +1,62 @@
+<nav class="navbar navbar-dark bg-dark fixed-top navbar-expand-lg">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" [routerLink]="['']" routerLinkActive="router-link-active">Home <span class="sr-only">(Current)</span></a>
+            </li>
+            <li class="nav-item" *ngIf="userInSigin() && currentUser.role == 'Admin'">
+                <a class="nav-link" [routerLink]="['admin/dashboard']" routerLinkActive #rla="routerLinkActive">Dashboard</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav float-right">
+            <li class="nav-item dropdown" *ngIf="userInSigin()">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{currentUser.userName}}
+                </a>
+                <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item btn btn-link" role="button" (click)="openProfileDialog()">Profile</a>
+                    <a class="dropdown-item btn btn-link" role="button" (click)="openChangePassDialog()">Change Password</a>
+                    <a class="dropdown-item btn btn-link" role="button" (click)="logout()">Signout</a>
+                </div>
+            </li>
+
+            <li class="nav-item" *ngIf="!userInSigin()">
+                <a class="nav-link" href="#">Sign in</a>
+            </li>
+            <li class="nav-item" *ngIf="userInSigin()">
+                <a (click)='logout()' role="button" class="nav-link" [routerLink]="['/login']" routerLinkActive="router-link-active">Sign out</a>
+            </li>
+        </ul>
+    </div>
+
+</nav>
+
+<nav class="catalog-group navbar navbar-light bg-light fixed-top navbar-expand-lg" style="top:56px; z-index: 10;" *ngIf="isOpen() && currentUser">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#catalog" aria-controls="navbarTogglerDemo" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse" id="catalog">
+        <ul class="navbar-nav mr-auto">
+            <div *ngFor="let root of listRootCatalog">
+                <li class="nav-item">
+                    <div class="btn-group">
+                        <button class="btn btn-light" [routerLink]="['news/catalog/', root.catalog.id]" routerLinkActive="router-link-active">{{root.catalog.name}}</button>
+                        <button *ngIf="root.child.length != 0" class="btn btn-light dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="sr-only">Toggle Dropdown</span></button>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" [routerLink]="['news/catalog/', child.id]" routerLinkActive="router-link-active" *ngFor="let child of root.child">{{child.name}}</a>
+                        </div>
+
+                    </div>
+                </li>
+            </div>
+        </ul>
+    </div>
+    <div class="float-right">
+        <button class="btn btn-primary" *ngIf="currentUser.role == 'Author'" [routerLink]="['/author/list-new']" routerLinkActive="router-link-active">New Manager</button>
+    </div>
+</nav>
+
+<router-outlet></router-outlet>
